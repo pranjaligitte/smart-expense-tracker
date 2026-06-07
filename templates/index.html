@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <title>Expense Tracker</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+    <<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+<h1 class="title">
+    💰 Smart Expense Tracker
+</h1>
+
+<p class="subtitle">
+    Track • Analyze • Predict
+</p>
+    <p class="subtitle">
+        Track and analyze your expenses easily
+    </p>
+
+   <form method="POST">
+
+    <div class="form-group">
+        <input
+            type="date"
+            name="date"
+            required>
+    </div>
+
+    <div class="form-group">
+        <input
+            type="number"
+            name="amount"
+            placeholder="Enter Amount"
+            required>
+    </div>
+
+    <div class="form-group">
+        <input
+            type="text"
+            name="category"
+            placeholder="Enter Category"
+            required>
+    </div>
+
+    <button type="submit">
+        Add Expense
+    </button>
+</form>
+<div class="dashboard-cards">
+    
+    <div class="card">
+        <h3>📈Predicted Spending</h3>
+        <h1>₹{{ prediction }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>💰 Total Expenses</h3>
+        <h1>₹{{ total }}</h1>
+    </div>
+
+    <div class="card">
+        
+        <h3>💵 Budget Left</h3>
+        <h1>₹{{ remaining }}</h1>
+    </div>
+
+</div>
+    <h2>Expenses</h2>
+
+<table>
+
+<tr>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>Category</th>
+    <th>Action</th>
+</tr>
+{% for expense in expenses %}
+<tr>
+    <td>{{ expense.Date }}</td>
+    <td>{{ expense.Amount }}</td>
+    <td>{{ expense.Category }}</td>
+
+    <td>
+        <a href="/delete/{{ loop.index0 }}">
+            <button class="delete-btn">
+                Delete
+            </button>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+<h2>Expense Distribution</h2>
+
+<img src="{{ url_for('static', filename='chart.png') }}"
+     alt="Expense Chart">
+
+
+</div>
+
+</body>
+
+</html>
